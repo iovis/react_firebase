@@ -1,0 +1,13 @@
+.header__title {
+  text-align: center;
+}
+
+.header__icon {
+  height: 24px;
+  margin-right: 1rem;
+}
+
+.header__columns {
+  display: flex;
+  justify-content: space-around;
+}
