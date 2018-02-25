@@ -1,0 +1,29 @@
+.board {
+  display: flex;
+  flex: 1;
+  justify-content: space-around;
+}
+
+.board__column {
+  flex: 1;
+}
+
+.board__column + .board__column {
+  border-left: 1px solid black;
+}
+
+.board__button {
+  background-color: #057bcf;
+  border-radius: 50%;
+  border: none;
+  bottom: 1rem;
+  box-shadow: 0 2px 4px 0 #0000004c;
+  color: #ffffff;
+  cursor: pointer;
+  font-size: 1.5rem;
+  height: 3rem;
+  outline: none;
+  position: absolute;
+  right: 1rem;
+  width: 3rem;
+}
