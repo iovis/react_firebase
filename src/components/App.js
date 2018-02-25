@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Board    from './components/Board';
-import Header   from './components/Header';
+import Board    from './Board';
+// import CardList from './CardList';
+import Header   from './Header';
 import './App.css';
 
 class App extends Component {
