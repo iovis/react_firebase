@@ -4,7 +4,17 @@ import Board    from './Board';
 import Header   from './Header';
 import './App.css';
 
+import sampleCards from '../sampleCards';
+
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      cards: sampleCards
+    };
+  }
+
   render() {
     return (
       <div className="app">
