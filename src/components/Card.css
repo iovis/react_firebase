@@ -1,0 +1,31 @@
+.card {
+  background-color: #ffe30e;
+  border: 1px solid #ffb04c;
+  box-shadow: 0 2px 4px 0 #0000004c;
+  box-sizing: border-box;
+  cursor: move;
+  padding: 1rem;
+  position: absolute;
+  will-change: transform;
+}
+
+.card__close {
+  background-color: #eee;
+  border-radius: 50%;
+  box-shadow: 0 2px 4px 0 #0000004c;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 1.5rem;
+  line-height: 1.5rem;
+  opacity: 0;
+  position: absolute;
+  text-align: center;
+  width: 1.5rem;
+  transition: .2s opacity;
+  will-change: opacity;
+}
+
+.card__close:hover,
+.card:hover + .card__close {
+  opacity: 1;
+}
