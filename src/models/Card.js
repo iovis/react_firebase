@@ -5,7 +5,7 @@ class Card {
       y: 0,
       width: Card.MINIMUM_WIDTH,
       height: Card.MINIMUM_HEIGHT
-    }
+    };
 
     this.id = Date.now();
     this.body = body;

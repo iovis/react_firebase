@@ -1,6 +1,9 @@
+import Card from '../models/Card';
+
 export function addCard(body, x, y, width, height) {
   return function(state) {
-    state.cards[Date.now()] = { body, x, y, width, height };
+    const card = new Card(body, { x, y, width, height });
+    state.cards[card.id] = card;
     return state;
   };
 }
@@ -21,16 +24,14 @@ export function removeCard(index) {
 
 export function moveCard(index, x, y) {
   return function(state) {
-    state.cards[index].x = x;
-    state.cards[index].y = y;
+    state.cards[index].move(x, y);
     return state;
   };
 }
 
 export function resizeCard(index, width, height) {
   return function(state) {
-    state.cards[index].width = width;
-    state.cards[index].height = height;
+    state.cards[index].resize(width, height);
     return state;
   };
 }
