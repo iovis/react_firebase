@@ -4,45 +4,32 @@ import CardList from './CardList';
 import Header   from './Header';
 import './App.css';
 
+import * as actions from '../actions';
 import sampleCards from '../sampleCards';
 
 class App extends Component {
-  constructor() {
-    super();
+  state = {
+    cards: sampleCards
+  };
 
-    this.state = {
-      cards: sampleCards
-    };
+  addCard = (body, x, y, width, height) => {
+    this.setState(actions.addCard(body, x, y, width, height));
   }
 
   updateCard = (index, body) => {
-    this.setState(({ cards }) => {
-      cards[index].body = body;
-      return cards;
-    });
+    this.setState(actions.updateCard(index, body));
   }
 
   removeCard = (index) => {
-    this.setState(({ cards }) => {
-      delete cards[index];
-      return cards;
-    });
+    this.setState(actions.removeCard(index));
   }
 
   moveCard = (index, x, y) => {
-    this.setState(({ cards }) => {
-      cards[index].x = x;
-      cards[index].y = y;
-      return cards;
-    });
+    this.setState(actions.moveCard(index, x, y));
   }
 
   resizeCard = (index, width, height) => {
-    this.setState(({ cards }) => {
-      cards[index].width = width;
-      cards[index].height = height;
-      return cards;
-    });
+    this.setState(actions.resizeCard(index, width, height));
   }
 
   render() {
