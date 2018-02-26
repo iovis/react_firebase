@@ -42,7 +42,7 @@ class App extends Component {
           resizeCard={this.resizeCard}
           removeCard={this.removeCard}
           updateCard={this.updateCard} />
-        <Board />
+        <Board addCard={this.addCard} />
       </div>
     );
   }

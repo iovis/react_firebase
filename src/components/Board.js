@@ -2,20 +2,15 @@ import React, { Component } from 'react';
 import './Board.css';
 
 class Board extends Component {
-  constructor() {
-    super();
-    this.addCard = this.addCard.bind(this);
-  }
+  addCard = () => {
+    const cardWidth   = 150;
+    const cardHeight  = 80;
+    const paddingLeft = 20;
 
-  addCard() {
-    // const button = document.querySelector('.board__button');
-    // const width = 150;
-    // const height = 80;
+    const x = this.button.offsetLeft - cardWidth - paddingLeft;
+    const y = this.button.offsetTop + this.button.offsetHeight - cardHeight;
 
-    // const x = button.offsetLeft - width - 20;
-    // const y = button.offsetTop + button.offsetHeight - height;
-
-    // this.props.store.addCard('Test', x, y, width, height);
+    this.props.addCard('New Card', x, y, cardWidth, cardHeight);
   }
 
   render() {
@@ -24,7 +19,9 @@ class Board extends Component {
         <div className="board__column"></div>
         <div className="board__column"></div>
         <div className="board__column"></div>
-        <button className="board__button" onClick={this.addCard}>
+        <button className="board__button"
+                ref={button => this.button = button}
+                onClick={this.addCard}>
           +
         </button>
       </div>
