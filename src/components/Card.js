@@ -1,45 +1,39 @@
 import React, { Component, Fragment } from 'react';
 import './Card.css';
-import icon from '../images/empty.png';
 
 class Card extends Component {
-  handleChange = (event) => {
+  constructor() {
+    super();
+
+    this.handleChange    = this.handleChange.bind(this);
+    this.handleDragEnd   = this.handleDragEnd.bind(this);
+    this.handleDragStart = this.handleDragStart.bind(this);
+    this.handleResize    = this.handleResize.bind(this);
+    this.removeCard      = this.removeCard.bind(this);
+  }
+
+  handleChange(event) {
     this.props.updateCard(this.props.index, event.target.value);
   }
 
-  removeCard = () => {
+  removeCard() {
     this.props.removeCard(this.props.index);
   }
 
   // Drag
-  handleDragStart = (event) => {
+  handleDragStart(event) {
     // Don't show the copy cursor
     event.dataTransfer.effectAllowed = 'move';
 
-    // Set empty jpeg to hide the ghost image
-    const img = new Image();
-    img.src = icon;
-    event.dataTransfer.setDragImage(img, 0, 0);
-
-    // Distance from where the user clicked to
-    // our coordinates
-    this.offsetX = event.clientX - this.props.card.x;
-    this.offsetY = event.clientY - this.props.card.y;
+    this.initialX = event.clientX;
+    this.initialY = event.clientY;
   }
 
-  handleDrag = (event) => {
-    this.x = event.clientX - this.offsetX;
-    this.y = event.clientY - this.offsetY;
+  handleDragEnd(event) {
+    const x = this.props.card.x + (event.clientX - this.initialX);
+    const y = this.props.card.y + (event.clientY - this.initialY);
 
-    requestAnimationFrame(this.moveCard);
-  }
-
-  handleDragEnd = (event) => {
-    this.handleDrag(event);
-  }
-
-  moveCard = () => {
-    this.props.moveCard(this.props.index, this.x, this.y);
+    this.props.moveCard(this.props.index, x, y);
   }
 
   // Prevent from resetting event.clientX/Y to zero when finishing drag
@@ -47,7 +41,7 @@ class Card extends Component {
     event.preventDefault();
   }
 
-  handleResize = (event) => {
+  handleResize(event) {
     const { offsetWidth, offsetHeight } = event.target;
     this.props.resizeCard(this.props.index, offsetWidth, offsetHeight);
   }
@@ -66,7 +60,6 @@ class Card extends Component {
             transform: `translate(${card.x}px, ${card.y}px)`
           }}
           onDragStart={this.handleDragStart}
-          onDrag={this.handleDrag}
           onDragEnd={this.handleDragEnd}
           onDragOver={this.handleDragOver}
           onMouseUp={this.handleResize}

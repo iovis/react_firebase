@@ -1,37 +1,32 @@
-import Card from '../models/Card';
+const MINIMUM_WIDTH  = 80;
+const MINIMUM_HEIGHT = 50;
 
-export function addCard(body, x, y, width, height) {
-  return function(state) {
-    const card = new Card(body, { x, y, width, height });
-    state.cards[card.id] = card;
-    return state;
-  };
+export function setX(card, value) {
+  if (value < 0) {
+    return 0;
+  } else if (value > window.innerWidth - card.width) {
+    // Don't let it go out of bounds
+    return window.innerWidth - card.width;
+  }
+
+  return value;
 }
 
-export function updateCard(index, body) {
-  return function(state) {
-    state.cards[index].body = body;
-    return state;
-  };
+export function setY(card, value) {
+  if (value < 0) {
+    return 0;
+  } else if (value > window.innerHeight - card.height) {
+    // Don't let it go out of bounds
+    return window.innerHeight - card.height;
+  }
+
+  return value;
 }
 
-export function removeCard(index) {
-  return function(state) {
-    delete state.cards[index];
-    return state;
-  };
+export function setWidth(value) {
+  return (value < MINIMUM_WIDTH) ? MINIMUM_WIDTH : value;
 }
 
-export function moveCard(index, x, y) {
-  return function(state) {
-    state.cards[index].move(x, y);
-    return state;
-  };
-}
-
-export function resizeCard(index, width, height) {
-  return function(state) {
-    state.cards[index].resize(width, height);
-    return state;
-  };
+export function setHeight(value) {
+  return (value < MINIMUM_HEIGHT) ? MINIMUM_HEIGHT : value;
 }

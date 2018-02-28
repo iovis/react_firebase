@@ -24,23 +24,40 @@ class App extends Component {
   }
 
   addCard = (body, x, y, width, height) => {
-    this.setState(actions.addCard(body, x, y, width, height));
+    const cards = {...this.state.cards};
+    cards[Date.now()] = { body, x, y, width, height };
+    this.setState({ cards });
   }
 
   updateCard = (index, body) => {
-    this.setState(actions.updateCard(index, body));
+    const cards = {...this.state.cards};
+    cards[index].body = body;
+    this.setState({ cards });
   }
 
   removeCard = (index) => {
-    this.setState(actions.removeCard(index));
+    const cards = {...this.state.cards};
+    cards[index] = null;
+    this.setState({ cards });
   }
 
   moveCard = (index, x, y) => {
-    this.setState(actions.moveCard(index, x, y));
+    const cards = {...this.state.cards};
+    const card  = cards[index];
+
+    cards[index].x = actions.setX(card, x);
+    cards[index].y = actions.setY(card, y);
+
+    this.setState({ cards });
   }
 
   resizeCard = (index, width, height) => {
-    this.setState(actions.resizeCard(index, width, height));
+    const cards = {...this.state.cards};
+
+    cards[index].width  = actions.setWidth(width);
+    cards[index].height = actions.setHeight(height);
+
+    this.setState({ cards });
   }
 
   render() {
