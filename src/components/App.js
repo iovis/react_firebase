@@ -5,12 +5,23 @@ import Header   from './Header';
 import './App.css';
 
 import * as actions from '../actions';
-import sampleCards from '../sampleCards';
+import base from '../base';
 
 class App extends Component {
   state = {
-    cards: sampleCards
+    cards: {}
   };
+
+  componentWillMount() {
+    this.base = base.syncState('cards', {
+      context: this,
+      state: 'cards'
+    });
+  }
+
+  componentWillUnmount() {
+    base.removeBinding(this.base);
+  }
 
   addCard = (body, x, y, width, height) => {
     this.setState(actions.addCard(body, x, y, width, height));
