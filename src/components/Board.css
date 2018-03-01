@@ -1,11 +1,10 @@
 .board {
   display: flex;
   flex: 1;
-  justify-content: space-around;
 }
 
 .board__column {
-  flex: 1;
+  flex: 0 0 400px;
 }
 
 .board__column + .board__column {

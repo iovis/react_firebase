@@ -9,5 +9,9 @@
 
 .header__columns {
   display: flex;
-  justify-content: space-around;
+}
+
+.header__columns > h2 {
+  flex: 0 0 400px;
+  text-align: center;
 }
