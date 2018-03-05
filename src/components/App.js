@@ -1,76 +1,47 @@
-import React, { Component } from 'react';
-import Board    from './Board';
-import CardList from './CardList';
-import Header   from './Header';
-import './App.css';
+import React, { Component, Fragment } from 'react';
 
-import * as actions from '../actions';
-import base from '../base';
+import Header        from './Header';
+import Login         from './Login';
+import Retrospective from './Retrospective';
+
+import base, { firebaseApp } from '../base';
+import firebase from 'firebase';
+
+import './App.css';
 
 class App extends Component {
   state = {
-    cards: {}
+    user: null
   };
 
   componentWillMount() {
-    this.base = base.syncState('cards', {
-      context: this,
-      state: 'cards'
-    });
   }
 
-  componentWillUnmount() {
-    base.removeBinding(this.base);
+  authHandler = authData => {
+    const user = authData.user.uid;
+    this.setState({ user });
   }
 
-  addCard = (body, x, y, width, height) => {
-    const cards = {...this.state.cards};
-    cards[Date.now()] = { body, x, y, width, height };
-    this.setState({ cards });
-  }
+  authenticate = () => {
+    console.log('authenticate');
 
-  updateCard = (index, body) => {
-    const cards = {...this.state.cards};
-    cards[index].body = body;
-    this.setState({ cards });
-  }
+    const authProvider = new firebase.auth.GoogleAuthProvider();
 
-  removeCard = (index) => {
-    const cards = {...this.state.cards};
-    cards[index] = null;
-    this.setState({ cards });
-  }
-
-  moveCard = (index, x, y) => {
-    const cards = {...this.state.cards};
-    const card  = cards[index];
-
-    cards[index].x = actions.setX(card, x);
-    cards[index].y = actions.setY(card, y);
-
-    this.setState({ cards });
-  }
-
-  resizeCard = (index, width, height) => {
-    const cards = {...this.state.cards};
-
-    cards[index].width  = actions.setWidth(width);
-    cards[index].height = actions.setHeight(height);
-
-    this.setState({ cards });
+    firebaseApp
+      .auth()
+      .signInWithPopup(authProvider)
+      .then(this.authHandler);
   }
 
   render() {
     return (
       <div className="app">
         <Header />
-        <CardList
-          cards={this.state.cards}
-          moveCard={this.moveCard}
-          resizeCard={this.resizeCard}
-          removeCard={this.removeCard}
-          updateCard={this.updateCard} />
-        <Board addCard={this.addCard} />
+        {
+          (!this.state.user)
+            ? <Login authenticate={this.authenticate} />
+            : <Retrospective />
+        }
       </div>
     );
   }
