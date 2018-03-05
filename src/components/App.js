@@ -36,10 +36,17 @@ class App extends Component {
       .then(this.authHandler);
   }
 
+  logout = async () => {
+    await firebase.auth().signOut();
+    this.setState({ user: null });
+  };
+
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header
+          user={this.state.user}
+          logout={this.logout} />
         {
           (!this.state.user)
             ? <Login authenticate={this.authenticate} />
