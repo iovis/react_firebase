@@ -1,7 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import './Board.css';
 
 class Board extends Component {
+  static propTypes = {
+    addCard: PropTypes.func.isRequired
+  };
+
   addCard = () => {
     const cardWidth   = 150;
     const cardHeight  = 80;
