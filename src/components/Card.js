@@ -56,7 +56,7 @@ class Card extends Component {
     const { card } = this.props;
 
     return (
-      <Fragment>
+      <div>
         <textarea
           className="card"
           draggable="true"
@@ -72,14 +72,27 @@ class Card extends Component {
           onChange={this.handleChange}
           value={card.body}>
         </textarea>
-        <div className="card__close"
-             style={{
-               transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)`
-             }}
-             onClick={this.removeCard}>
+
+        <div
+          className="card__vote"
+          style={{
+            transform: `translate(${card.x}px, ${card.y}px)`
+          }}
+        >
+          <div className="card__vote--upvote">⬆</div>
+          <div className="card__vote--count">+3</div>
+        </div>
+
+        <div
+          className="card__close"
+          style={{
+            transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)`
+          }}
+          onClick={this.removeCard}
+        >
           &times;
         </div>
-      </Fragment>
+      </div>
     );
   }
 }
