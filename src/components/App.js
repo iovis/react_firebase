@@ -15,6 +15,11 @@ class App extends Component {
   };
 
   componentWillMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.authHandler({ user });
+      }
+    });
   }
 
   authHandler = authData => {
