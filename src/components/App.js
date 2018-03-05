@@ -1,10 +1,10 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 
 import Header        from './Header';
 import Login         from './Login';
 import Retrospective from './Retrospective';
 
-import base, { firebaseApp } from '../base';
+import { firebaseApp } from '../base';
 import firebase from 'firebase';
 
 import './App.css';
@@ -28,8 +28,6 @@ class App extends Component {
   }
 
   authenticate = () => {
-    console.log('authenticate');
-
     const authProvider = new firebase.auth.GoogleAuthProvider();
 
     firebaseApp
