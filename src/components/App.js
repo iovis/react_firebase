@@ -44,13 +44,12 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header
-          user={this.state.user}
-          logout={this.logout} />
+        <Header user={this.state.user} logout={this.logout} />
+
         {
-          (!this.state.user)
-            ? <Login authenticate={this.authenticate} />
-            : <Retrospective />
+          (this.state.user)
+            ? <Retrospective />
+            : <Login authenticate={this.authenticate} />
         }
       </div>
     );
