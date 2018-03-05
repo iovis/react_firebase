@@ -2,26 +2,16 @@ import React, { Component, Fragment } from 'react';
 import './Card.css';
 
 class Card extends Component {
-  constructor() {
-    super();
-
-    this.handleChange    = this.handleChange.bind(this);
-    this.handleDragEnd   = this.handleDragEnd.bind(this);
-    this.handleDragStart = this.handleDragStart.bind(this);
-    this.handleResize    = this.handleResize.bind(this);
-    this.removeCard      = this.removeCard.bind(this);
-  }
-
-  handleChange(event) {
+  handleChange = (event) => {
     this.props.updateCard(this.props.index, event.target.value);
   }
 
-  removeCard() {
+  removeCard = () => {
     this.props.removeCard(this.props.index);
   }
 
   // Drag
-  handleDragStart(event) {
+  handleDragStart = (event) => {
     // Don't show the copy cursor
     event.dataTransfer.effectAllowed = 'move';
 
@@ -29,7 +19,7 @@ class Card extends Component {
     this.initialY = event.clientY;
   }
 
-  handleDragEnd(event) {
+  handleDragEnd = (event) => {
     const x = this.props.card.x + (event.clientX - this.initialX);
     const y = this.props.card.y + (event.clientY - this.initialY);
 
@@ -41,7 +31,7 @@ class Card extends Component {
     event.preventDefault();
   }
 
-  handleResize(event) {
+  handleResize = (event) => {
     const { offsetWidth, offsetHeight } = event.target;
     this.props.resizeCard(this.props.index, offsetWidth, offsetHeight);
   }
