@@ -1,7 +1,23 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 import './Card.css';
 
 class Card extends Component {
+  static propTypes = {
+    index: PropTypes.string.isRequired,
+    card: PropTypes.shape({
+      body: PropTypes.string.isRequired,
+      x: PropTypes.number.isRequired,
+      y: PropTypes.number.isRequired,
+      height: PropTypes.number.isRequired,
+      width: PropTypes.number.isRequired,
+    }).isRequired,
+    moveCard: PropTypes.func.isRequired,
+    resizeCard: PropTypes.func.isRequired,
+    removeCard: PropTypes.func.isRequired,
+    updateCard: PropTypes.func.isRequired,
+  };
+
   handleChange = (event) => {
     this.props.updateCard(this.props.index, event.target.value);
   }
