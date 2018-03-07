@@ -44,11 +44,11 @@
   left: 1px;
   line-height: 20px;
   opacity: 1;
+  width: 1.8rem;
 }
 
 .card__vote:hover,
-.voted,
-.voted + .card__vote--count {
+.voted {
   color: #ff4500;
 }
 
@@ -61,8 +61,8 @@
 
 .card__close:hover,
 .card__vote:hover,
-.card__vote--count ~ .card__vote,
-.card__vote--count ~ .card__close,
+.card__vote--count:hover ~ .card__vote,
+.card__vote--count:hover ~ .card__close,
 .card:hover ~ .card__vote,
 .card:hover ~ .card__close {
   opacity: 1;
