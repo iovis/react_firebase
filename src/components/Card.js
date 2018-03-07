@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import './Card.css';
 
@@ -79,8 +79,16 @@ class Card extends Component {
             transform: `translate(${card.x}px, ${card.y}px)`
           }}
         >
-          <div className="card__vote--upvote">⬆</div>
-          <div className="card__vote--count">+3</div>
+          ⬆
+        </div>
+
+        <div
+          className="card__vote--count"
+          style={{
+            transform: `translate(${card.x}px, ${card.y + card.height}px)`
+          }}
+        >
+          +3
         </div>
 
         <div
