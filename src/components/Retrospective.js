@@ -29,7 +29,7 @@ class Retrospective extends Component {
 
   addCard = (body, x, y, width, height) => {
     const cards = {...this.state.cards};
-    // Why the frick can't I pass an empty array???
+    // Why the frick can't I pass an empty array??? => FIREBASE
     cards[Date.now()] = { body, x, y, width, height, votes: [''] };
     this.setState({ cards });
   }
