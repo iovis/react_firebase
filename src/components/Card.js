@@ -120,13 +120,13 @@ class Card extends Component {
 
   render() {
     const { card } = this.props;
-    const shouldRenderVotes = (card.votes && card.votes.length - 1 !== 0);
+    const shouldRenderVotes = card.votes.length - 1 !== 0;
 
     return (
       <div>
         { this.renderCard(card) }
-        { this.renderVoteButton(card) }
         { shouldRenderVotes && this.renderVotes(card) }
+        { this.renderVoteButton(card) }
         { this.renderCloseButton(card) }
       </div>
     );
