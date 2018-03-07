@@ -21,7 +21,9 @@ class Card extends Component {
     updateCard: PropTypes.func.isRequired,
   };
 
-  currentUserVoted = () => this.props.card.votes.includes(this.props.user)
+  currentUserVoted = () => (
+    this.props.card.votes && this.props.card.votes.includes(this.props.user)
+  )
 
   handleChange = (event) => {
     this.props.updateCard(this.props.index, event.target.value);
@@ -111,7 +113,7 @@ class Card extends Component {
 
   render() {
     const { card } = this.props;
-    const shouldRenderVotes = card.votes.length - 1 !== 0;
+    const shouldRenderVotes = (card.votes && card.votes.length - 1 !== 0);
 
     return (
       <div>
