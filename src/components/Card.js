@@ -25,13 +25,9 @@ class Card extends Component {
     this.props.card.votes && this.props.card.votes.includes(this.props.user)
   )
 
-  handleChange = (event) => {
-    this.props.updateCard(this.props.index, event.target.value);
-  }
+  handleChange = (event) => this.props.updateCard(this.props.index, event.target.value);
 
-  removeCard = () => {
-    this.props.removeCard(this.props.index);
-  }
+  removeCard = () => this.props.removeCard(this.props.index);
 
   // Drag
   handleDragStart = (event) => {
@@ -59,10 +55,7 @@ class Card extends Component {
     this.props.resizeCard(this.props.index, offsetWidth, offsetHeight);
   }
 
-  handleVote = (event) => {
-    console.log('voted');
-    this.props.toggleVote(this.props.index, this.props.user);
-  }
+  handleVote = (event) => this.props.toggleVote(this.props.index, this.props.user);
 
   renderCard = (card) => (
     <textarea
