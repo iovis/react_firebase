@@ -48,7 +48,7 @@ class App extends Component {
 
         {
           (this.state.user)
-            ? <Retrospective />
+            ? <Retrospective user={this.state.user} />
             : <Login authenticate={this.authenticate} />
         }
       </div>

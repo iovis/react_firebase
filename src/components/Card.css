@@ -54,12 +54,15 @@
 
 .card__close {
   border-radius: 50%;
+  cursor: pointer;
   height: 1.5rem;
   line-height: 1.5rem;
 }
 
 .card__close:hover,
 .card__vote:hover,
+.card__vote--count ~ .card__vote,
+.card__vote--count ~ .card__close,
 .card:hover ~ .card__vote,
 .card:hover ~ .card__close {
   opacity: 1;

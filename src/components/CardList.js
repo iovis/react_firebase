@@ -5,7 +5,9 @@ import './CardList.css';
 
 class CardList extends Component {
   static propTypes = {
+    user: PropTypes.string.isRequired,
     cards: PropTypes.object.isRequired,
+    toggleVote: PropTypes.func.isRequired,
     moveCard: PropTypes.func.isRequired,
     resizeCard: PropTypes.func.isRequired,
     removeCard: PropTypes.func.isRequired,
@@ -21,7 +23,9 @@ class CardList extends Component {
             <Card
               key={index}
               index={index}
+              user={this.props.user}
               card={this.props.cards[index]}
+              toggleVote={this.props.toggleVote}
               moveCard={this.props.moveCard}
               resizeCard={this.props.resizeCard}
               removeCard={this.props.removeCard}

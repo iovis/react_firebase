@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 import Board    from './Board';
 import CardList from './CardList';
@@ -7,6 +8,10 @@ import * as actions from '../actions';
 import base from '../base';
 
 class Retrospective extends Component {
+  static propTypes = {
+    user: PropTypes.string.isRequired
+  };
+
   state = {
     cards: {}
   }
@@ -24,7 +29,8 @@ class Retrospective extends Component {
 
   addCard = (body, x, y, width, height) => {
     const cards = {...this.state.cards};
-    cards[Date.now()] = { body, x, y, width, height };
+    // Why the frick can't I pass an empty array???
+    cards[Date.now()] = { body, x, y, width, height, votes: [''] };
     this.setState({ cards });
   }
 
@@ -59,11 +65,26 @@ class Retrospective extends Component {
     this.setState({ cards });
   }
 
+  toggleVote = (index, user) => {
+    const cards = {...this.state.cards};
+    const userIndex = cards[index].votes.indexOf(user);
+
+    if (userIndex < 0) {
+      cards[index].votes.push(user);
+    } else {
+      cards[index].votes.splice(userIndex, 1);
+    }
+
+    this.setState({ cards });
+  }
+
   render() {
     return (
       <Fragment>
         <CardList
+          user={this.props.user}
           cards={this.state.cards}
+          toggleVote={this.toggleVote}
           moveCard={this.moveCard}
           resizeCard={this.resizeCard}
           removeCard={this.removeCard}

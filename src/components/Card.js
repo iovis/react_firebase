@@ -5,13 +5,16 @@ import './Card.css';
 class Card extends Component {
   static propTypes = {
     index: PropTypes.string.isRequired,
+    user: PropTypes.string.isRequired,
     card: PropTypes.shape({
       body: PropTypes.string.isRequired,
       x: PropTypes.number.isRequired,
       y: PropTypes.number.isRequired,
       height: PropTypes.number.isRequired,
       width: PropTypes.number.isRequired,
+      votes: PropTypes.array.isRequired
     }).isRequired,
+    toggleVote: PropTypes.func.isRequired,
     moveCard: PropTypes.func.isRequired,
     resizeCard: PropTypes.func.isRequired,
     removeCard: PropTypes.func.isRequired,
@@ -52,54 +55,77 @@ class Card extends Component {
     this.props.resizeCard(this.props.index, offsetWidth, offsetHeight);
   }
 
+  handleVote = (event) => {
+    console.log('voted');
+    // TODO remove ref
+    this.voteContainer.classList.toggle('voted');
+    this.props.toggleVote(this.props.index, this.props.user);
+  }
+
+  renderCard = (card) => (
+    <textarea
+      className="card"
+      draggable="true"
+      style={{
+        width: card.width,
+        height: card.height,
+        transform: `translate(${card.x}px, ${card.y}px)`
+      }}
+      onDragStart={this.handleDragStart}
+      onDragEnd={this.handleDragEnd}
+      onDragOver={this.handleDragOver}
+      onMouseUp={this.handleResize}
+      onChange={this.handleChange}
+      value={card.body}>
+    </textarea>
+  )
+
+  renderVoteButton = (card) => (
+    <div
+      className="card__vote"
+      onClick={this.handleVote}
+      ref={container => this.voteContainer = container}
+      style={{
+        transform: `translate(${card.x}px, ${card.y}px)`
+      }}
+    >
+      ⬆
+    </div>
+  )
+
+  renderVotes = (card) => (
+    <div
+      className="card__vote--count"
+      style={{
+        transform: `translate(${card.x}px, ${card.y + card.height}px)`
+      }}
+    >
+      {card.votes.length - 1}
+    </div>
+  )
+
+  renderCloseButton = (card) => (
+    <div
+      className="card__close"
+      style={{
+        transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)`
+      }}
+      onClick={this.removeCard}
+    >
+      &times;
+    </div>
+  )
+
   render() {
     const { card } = this.props;
+    const shouldRenderVotes = card.votes.length - 1 !== 0;
 
     return (
       <div>
-        <textarea
-          className="card"
-          draggable="true"
-          style={{
-            width: card.width,
-            height: card.height,
-            transform: `translate(${card.x}px, ${card.y}px)`
-          }}
-          onDragStart={this.handleDragStart}
-          onDragEnd={this.handleDragEnd}
-          onDragOver={this.handleDragOver}
-          onMouseUp={this.handleResize}
-          onChange={this.handleChange}
-          value={card.body}>
-        </textarea>
-
-        <div
-          className="card__vote"
-          style={{
-            transform: `translate(${card.x}px, ${card.y}px)`
-          }}
-        >
-          ⬆
-        </div>
-
-        <div
-          className="card__vote--count"
-          style={{
-            transform: `translate(${card.x}px, ${card.y + card.height}px)`
-          }}
-        >
-          +3
-        </div>
-
-        <div
-          className="card__close"
-          style={{
-            transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)`
-          }}
-          onClick={this.removeCard}
-        >
-          &times;
-        </div>
+        { this.renderCard(card) }
+        { this.renderVoteButton(card) }
+        { shouldRenderVotes && this.renderVotes(card) }
+        { this.renderCloseButton(card) }
       </div>
     );
   }
