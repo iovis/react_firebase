@@ -59,8 +59,6 @@ class Card extends Component {
 
   handleVote = (event) => {
     console.log('voted');
-    // TODO remove ref
-    this.voteContainer.classList.toggle('voted');
     this.props.toggleVote(this.props.index, this.props.user);
   }
 
@@ -86,10 +84,7 @@ class Card extends Component {
     <div
       className={`card__vote ${this.currentUserVoted() && 'voted'}`}
       onClick={this.handleVote}
-      ref={container => this.voteContainer = container}
-      style={{
-        transform: `translate(${card.x}px, ${card.y}px)`
-      }}
+      style={{ transform: `translate(${card.x}px, ${card.y}px)` }}
     >
       ⬆
     </div>
@@ -98,9 +93,7 @@ class Card extends Component {
   renderVotes = (card) => (
     <div
       className={`card__vote--count ${this.currentUserVoted() && 'voted'}`}
-      style={{
-        transform: `translate(${card.x}px, ${card.y + card.height}px)`
-      }}
+      style={{ transform: `translate(${card.x}px, ${card.y + card.height}px)` }}
     >
       {card.votes.length - 1}
     </div>
@@ -109,9 +102,7 @@ class Card extends Component {
   renderCloseButton = (card) => (
     <div
       className="card__close"
-      style={{
-        transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)`
-      }}
+      style={{ transform: `translate(${card.x + card.width - 12}px, ${card.y - 12}px)` }}
       onClick={this.removeCard}
     >
       &times;
